@@ -1,0 +1,46 @@
+.footer {
+    background-color: #2f2f30;
+    padding: 10px;
+    text-align: center;
+    /* position: fixed; */
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    height: 27%;
+}
+
+.footer-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    max-width: 1200px;
+    margin: 0;
+}
+
+.footer-contact {
+    text-align: left;
+}
+
+.footer-social {
+    text-align: right;
+}
+
+.footer a {
+    text-decoration: none;
+    color: #ffffff;
+    margin: 0 10px;
+    transition: color 0.3s ease;
+}
+
+.footer a:hover {
+    color: blue; /* Màu xanh khi hover */
+}
+
+.footer-contact-content {
+    font-size: 18px;
+    font-weight: bold;
+}
+
+.footer p {
+    margin: 5px 0;
+}

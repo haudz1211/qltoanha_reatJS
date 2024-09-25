@@ -1,0 +1,14 @@
+.slideshow-container {
+    width: 100%;
+    margin: auto;
+  }
+  
+  .slide {
+    text-align: center;
+  }
+  
+  .slide-image {
+    width: 100%;
+    height: auto;
+  }
+  

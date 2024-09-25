@@ -1,0 +1,216 @@
+
+
+/* Wrapper cho nội dung chính */
+.home-content-wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100vh; /* Đặt chiều cao của phần này bằng với chiều cao của viewport */
+    background-color: #f8f9fa;
+}
+
+/* Container chính */
+.container {
+    max-width: 1200px;
+    width: 100%;
+}
+
+/* Hàng chứa phần văn bản và ảnh */
+.row {
+    display: flex;
+    flex-wrap: nowrap; /* Đảm bảo các phần tử không xuống dòng */
+}
+
+/* Phần văn bản và ảnh */
+.text-section,
+.image-container {
+    flex: 1; /* Cả hai phần đều chiếm 50% chiều rộng */
+}
+
+/* Phần văn bản */
+.text-section {
+    padding: 20px;
+}
+
+.heading-container {
+    margin-bottom: 20px;
+}
+
+.heading-container h4 {
+    font-size: 1.5rem;
+    color: #ffffff;
+}
+
+.heading-container h3 {
+    font-size: 2rem;
+    color: #007bff;
+}
+
+/* Phần nội dung chính */
+p {
+    font-size: 1rem;
+    line-height: 1.6;
+    color: #666;
+}
+
+/* Container cho nút */
+.button-container {
+    margin-top: 20px;
+}
+
+.contact-button {
+    display: inline-block;
+    padding: 10px 20px;
+    font-size: 1rem;
+    color: #fff;
+    background-color: #007bff;
+    text-decoration: none;
+    border-radius: 5px;
+    position: relative;
+    overflow: hidden;
+    transition: background-color 0.3s;
+}
+
+.contact-button:hover {
+    background-color: #0056b3;
+}
+
+.button-inner {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 200%;
+    height: 200%;
+    background: rgba(255, 255, 255, 0.2);
+    border-radius: 50%;
+    animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+    0% {
+        transform: translate(-50%, -50%) scale(1);
+        opacity: 1;
+    }
+    100% {
+        transform: translate(-50%, -50%) scale(1.5);
+        opacity: 0;
+    }
+}
+
+/* Container cho hình ảnh */
+.image-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    background-image: url('../assets/img/building1.jpg');  
+    background-size: cover;  
+    background-position: center;  
+    background-repeat: no-repeat;  
+}
+
+.responsive-image {
+    max-width: 100%;
+    height: auto;
+    border-radius: 8px;
+}
+
+
+/* Phần thông tin */
+
+.info-section {
+    padding: 50px 0;
+    background-color: #f9f9f9; /* Màu nền nhẹ để phân biệt với các phần khác */
+}
+
+/* Container để căn chỉnh các thẻ */
+.container {
+    max-width: 1200px; /* Chiều rộng tối đa của container */
+    margin: 0 auto; /* Căn giữa container */
+    padding: 0 10px; /* Padding cho container */
+}
+
+/* Lưới thông tin */
+.info-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); /* Tạo lưới với các cột linh hoạt */
+    gap: 50px; /* Khoảng cách giữa các thẻ */
+}
+
+
+/* Thẻ thông tin */
+.info-card {
+    background-color: #fff; /* Màu nền của thẻ */
+    border-radius: 10px; /* Bo tròn góc thẻ */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Bóng đổ nhẹ */
+    overflow: hidden; /* Đảm bảo nội dung không tràn ra ngoài */
+    transition: transform 0.3s, box-shadow 0.3s; /* Hiệu ứng chuyển đổi khi hover */
+    text-decoration: none; /* Loại bỏ gạch chân */
+}
+
+/* Nội dung của thẻ thông tin */
+.info-content {
+    padding: 30px; /* Padding cho nội dung thẻ */
+    height: 100%; /* Đảm bảo thẻ chiếm toàn bộ chiều cao */
+    display: flex;
+    flex-direction: column;
+    justify-content: center; /* Căn giữa nội dung theo chiều dọc */
+}
+
+/* Tiêu đề và đoạn văn bên trong thẻ */
+.info-card h3 {
+    margin: 0 0 10px; /* Khoảng cách dưới tiêu đề */
+    font-size: 1.25rem; /* Kích thước chữ tiêu đề */
+}
+
+.info-card p {
+    margin: 0; /* Loại bỏ margin */
+    font-size: 0.9rem; /* Kích thước chữ đoạn văn */
+}
+
+.info-card {
+    position: relative; /* add relative positioning to the card */
+    transition: transform 0.3s; /* add a transition effect */
+  }
+  
+  .info-card:hover {
+    transform: scale(1.05); /* scale up the card on hover */
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2); /* add a subtle shadow on hover */
+    cursor: pointer; /* change the cursor to a pointer on hover */
+  }
+  
+  .info-card::before {
+    content: ""; /* create a pseudo-element for the border */
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 0; /* initially set the width to 0 */
+    height: 100%;
+    border: 2px solid #ccc; /* add a border to the pseudo-element */
+    transition: width 0.3s; /* add a transition for the width */
+  }
+  
+  .info-card:hover::before {
+    width: 100%; /* set the width to 100% on hover */
+  }
+  
+  .info-card::before {
+    border-color: #df0000;
+   border-style: dashed;
+    border-radius: 10px; /* Bo tròn góc khung */
+    transition: border-color 0.3s; /* Hiệu ứng chuyển đổi màu khung */
+    pointer-events: none; /* Không ảnh hưởng đến các sự kiện chuột */
+}
+
+/* Responsive */
+@media (max-width: 767px) {
+    .row {
+        flex-direction: column; /* Đặt phần tử thành cột trên các màn hình nhỏ hơn */
+    }
+
+    .text-section,
+    .image-container {
+        width: 100%; /* Cả hai phần đều chiếm 100% chiều rộng trên màn hình nhỏ */
+    }
+}

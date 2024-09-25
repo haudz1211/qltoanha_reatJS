@@ -1,0 +1,116 @@
+body {
+  margin: 0;
+  padding: 0;
+  font-family: 'Arial', sans-serif;
+  background: url('../assets/img/bg3.png') no-repeat center center fixed;
+  background-size: cover;
+  height: 100vh;
+}
+
+.login {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  padding: 20px;
+}
+
+.login__content {
+  background: rgba(255, 255, 255, 0.9);
+  border-radius: 10px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+  width: 400px;
+  padding: 30px;
+  position: relative;
+  /* top: 1.2rem; */
+}
+
+.login__img {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.login__img img {
+  max-width: 100%;
+  height: auto;
+}
+
+.login__title {
+  text-align: center;
+  font-size: 28px;
+  font-weight: 600;
+  margin-bottom: 20px;
+  color: #333;
+}
+
+.login__box {
+  position: relative;
+  margin-bottom: 20px;
+}
+
+.login__icon {
+  position: absolute;
+  left: 10px;
+  top: 12px;
+  color: #888;
+}
+
+.login__input {
+  width: 100%;
+  padding: 12px 40px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  font-size: 16px;
+  color: #333; /* Màu chữ khi nhập */
+  background-color: #f9f9f9; /* Màu nền ô nhập */
+  transition: border-color 0.3s;
+}
+
+.login__input:focus {
+  border-color: #007bff;
+  outline: none;
+  background-color: #fff; /* Đổi màu nền khi focus */
+}
+
+.login__button {
+  width: 100%;
+  padding: 12px;
+  background-color: #007bff;
+  border: none;
+  border-radius: 5px;
+  color: white;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background 0.3s;
+}
+
+.login__button:hover {
+  background-color: #0056b3;
+}
+
+.login__account, .login__signin, .login__signup {
+  display: block;
+  text-align: center;
+  margin-top: 10px;
+  color: #007bff;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.login__account:hover, .login__signin:hover, .login__signup:hover {
+  text-decoration: underline;
+}
+
+.msg-log {
+  position: absolute;
+  top: 10px;
+  left: 50%;
+  transform: translateX(-50%);
+  color: red;
+  font-size: 14px;
+  display: none; /* Ẩn thông báo mặc định */
+}
+
+.msg-log.active {
+  display: block; /* Hiển thị khi có thông báo */
+}
