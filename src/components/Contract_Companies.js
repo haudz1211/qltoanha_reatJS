@@ -1,3 +1,4 @@
+
 import { Navigate } from 'react-router-dom';
 
 import React, { useState, useEffect } from 'react';
@@ -6,7 +7,9 @@ import '../css/form.css';
 import '../css/dialog.css';
 import { useDispatch, useSelector } from 'react-redux';
 import '../css/loading.css';
-import { useLocation, useNavigate } from 'react-router-dom';
+import { useLocation } from 'react-router-dom';
+// import { useLocation, useNavigate } from 'react-router-dom';
+
 import { getFloorById } from '../redux/actions/floor';
 import { getAllCompanyForRegistration, getTheRestArea, createContract, getCompaniesForRegistrationByName } from '../redux/actions/rented_area';
 import '../css/search_bar.css';
@@ -24,7 +27,7 @@ const ContractCompany = () => {
     const floorId = new URLSearchParams(search).get('floorId');
     const dispatch = useDispatch();
     const restAreaFromReducer = useSelector(state => state.rentedAreas.restArea);
-    const navigate = useNavigate();
+    // const navigate = useNavigate();
 
     // form states
     const [startDate, setStartDate] = useState("");
@@ -42,7 +45,7 @@ const ContractCompany = () => {
         return () => {
             console.log(location.pathname);
         };
-    }, [location.pathname]);
+    }, [dispatch, floorId, location.pathname]);
 
     useEffect(() => {
         setCompanies(data);
@@ -66,6 +69,7 @@ const ContractCompany = () => {
         setEndDate("");
         setRentArea("");
         setPosition("");
+        
     };
 
     const cancelClick = () => {
@@ -159,14 +163,14 @@ const ContractCompany = () => {
         );
     }
 
-    return (
+    return ( 
         <>
             <div style={{ position: 'relative' }} >
                 <div class="loading-content" style={{ display: iconLoad ? "block" : "none" }}>
                     <div class="loader"></div>
                 </div>
-                <div style={{ display: isShow ? 'block' : 'none' }} className="modal">
-                    <div className="modal_overlay"></div>
+                <div style={{ display: isShow ? 'block' : 'none' }} className="modal1">
+                    <div className="modal_overlay1"></div>
                     <div className="form-post" style={{ height: "700px" }}>
                         <div className="form-post__title dialog__title">
                             Đăng ký hợp đồng thuê
@@ -204,18 +208,61 @@ const ContractCompany = () => {
                         </div>
                     </div>
                 </div>
-                <div className="search-bar-wrapper" style={{ display: isShow ? 'none' : 'block' }}>
-                    <input type="text" value={companyName} onChange={(e) => searchBarChange(e)} className="search-bar" placeholder="Tìm công ty" />
-                    <button onClick={findCompaniesByNameClick} className="search-bar-button">Tìm kiếm</button>
-                </div>
-                <div className="company-list">
-                    {companies?.map((company) => (
-                        <div key={company.id} className="company-list__item" onClick={() => popUpEditForm(company)}>
-                            <p>{company.name}</p>
+               
+
+                <div style={{ maxWidth: "1100px", minHeight: "100vh" }} className="admin-post__container">
+                <div className="admin-post__wrapper"></div>
+                    <div className="admin-post__head">
+                        <div style={{ fontSize: "20px", marginLeft: "-20px" }} className="admin-post__title">
+                            Chọn công ty để đăng ký hợp đồng
                         </div>
-                    ))}
+                        <form action="javascript:" className="search-bar">
+                            <input placeholder='Tìm kiếm công ty theo tên' type="search" name="search" pattern=".*\S.*" />
+                            
+                        </form>
+                        
+                    </div>
+                    <div className="admin-post__body">
+                        <table id="admin-post__table">
+                            <tbody>
+                                <tr>
+                                    <th>STT</th>
+                                    <th style={{ width: '200px' }}>Tên</th>
+                                    <th style={{ width: '200px' }}>Mã số thuế</th>
+                                    <th style={{ width: '200px' }}>Vốn điều lệ</th>
+                                    <th style={{ width: '200px' }}>Số điện thoại</th>
+                                    <th style={{ width: '200px' }}>Số nhân viên</th>
+                                    <th style={{ width: '300px' }}>Tổng diện tích thuê</th>
+                                    <th style={{ width: '300px' }}>Đăng ký hợp đồng</th>
+                                </tr>
+                                {
+                                    companies?.map((item, index) => (
+                                        <tr key={index}>
+                                            <td>{index + 1}</td>
+                                            <td>{item?.name}</td>
+                                            <td>{item?.taxCode}</td>
+                                            <td>{new Intl.NumberFormat('vi-VN', {
+                                                style: 'currency',
+                                                currency: 'VND',
+                                            }).format(item?.authorizedCapital)}</td>
+                                            <td>{item?.phoneNo}</td>
+                                            <td>{item?.numberOfEmployee}</td>
+                                            <td>{item?.sumOfRentedArea}</td>
+                                            <td>
+                                                <button className="company-list__item" onClick={() => popUpEditForm(item)}>
+                                                    <i className='bx bxs-pencil' style={{ marginRight: '5px' }}></i>
+                                                    Đăng ký
+                                                </button>
+                                            </td>    
+                                        </tr>
+                                    ))
+                                }
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
-            </div>
+                </div>
+            
         </>
     );
 };

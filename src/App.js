@@ -51,6 +51,7 @@ function App() {
                     <Route path="/admin" element={<AdminDashboard />} /> {/* Route cho trang quản trị */}
                     <Route path="/contact" element={<Contact />} />
                     <Route path="/company/view-employees/:id" element={<Employee />} />
+                    <Route path="/employees/:companyId" element={<Employee />} />   
                     
                     <Route path="/company" element={<Company />} />
                     <Route path="/user-management" element={<PrivateRoute element={<UserManagement />} />} />

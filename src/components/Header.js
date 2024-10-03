@@ -1,15 +1,12 @@
-// import React, { useState, useEffect } from 'react';
 import React, { useState } from 'react';
-
 import '../css/header.css';
-import { Link } from 'react-router-dom';
-import { Navigate } from 'react-router-dom';
+import { Link, Navigate } from 'react-router-dom';
 
 const Header = () => {
     const [isLogout, setIsLogout] = useState(false);
+    const [redirectLogin, setRedirectLogin] = useState(false);
     const username = localStorage.getItem('username');
     const token = localStorage.getItem('token');
-    // const isAdmin = localStorage.getItem('isAdmin');
 
     const logout = () => {
         localStorage.removeItem("token");
@@ -44,9 +41,20 @@ const Header = () => {
         }
     };
 
-    return isLogout ? <Navigate to='/login' replace={true} /> : (
+    // Điều kiện chuyển hướng đến trang đăng nhập nếu chưa có token
+    const requireLogin = () => {
+        if (!token) {
+            setRedirectLogin(true);
+        }
+    };
+
+    if (isLogout || redirectLogin) {
+        return <Navigate to='/login' replace={true} />;
+    }
+
+    return (
         <header className="header">
-            <Link className="header__logo" to='/'  >
+            <Link className="header__logo" to='/'>
                 MANAGEMENTBUILDING.COM
             </Link>
             <i className="bx bx-menu header__toggle" id="header-toggle" onClick={showMenu} />
@@ -60,7 +68,6 @@ const Header = () => {
                     </Link>
                     <div className="nav__menu">
                         <ul className="nav__list">
-                           
                             <li className="nav__item dropdown">
                                 <div id="about" style={{ cursor: 'pointer' }}
                                     className="nav__link dropdown__link"
@@ -68,30 +75,29 @@ const Header = () => {
                                     Quản lý tòa nhà
                                     <i className="bx bx-chevron-down dropdown__icon" />
                                 </div>
-
                                 <ul className="dropdown__menu">
                                     <li className="dropdown__item">
-                                        <Link className="nav__link link__item" to='/company' onClick={() => linkAction('about', true)}>
+                                        <Link className="nav__link link__item" to={token ? '/company' : '/login'} onClick={requireLogin}>
                                             Công ty
                                         </Link>
                                     </li>
                                     <li className="dropdown__item">
-                                        <Link className="nav__link link__item" to='/floors' onClick={() => linkAction('about', true)}>
+                                        <Link className="nav__link link__item" to={token ? '/floors' : '/login'} onClick={requireLogin}>
                                             Mặt bằng
                                         </Link>
                                     </li>
                                     <li className="dropdown__item">
-                                        <Link className="nav__link link__item" to='/monthly-fee-statistics' onClick={() => linkAction('about', true)}>
+                                        <Link className="nav__link link__item" to={token ? '/monthly-fee-statistics' : '/login'} onClick={requireLogin}>
                                             Tiền tháng này
                                         </Link>
                                     </li>
                                     <li className="dropdown__item">
-                                        <Link className="nav__link link__item" to='/monthly-statistics' onClick={() => linkAction('about', true)}>
+                                        <Link className="nav__link link__item" to={token ? '/monthly-statistics' : '/login'} onClick={requireLogin}>
                                             Thống kê doanh thu
                                         </Link>
                                     </li>
                                     <li className="dropdown__item">
-                                        <Link className="nav__link link__item" to='/monthly-salary' onClick={() => linkAction('about', true)}>
+                                        <Link className="nav__link link__item" to={token ? '/monthly-salary' : '/login'} onClick={requireLogin}>
                                             Thống kê lương tháng nhân viên
                                         </Link>
                                     </li>
@@ -104,21 +110,19 @@ const Header = () => {
                                     Quản lý Dịch vụ
                                     <i className="bx bx-chevron-down dropdown__icon" />
                                 </div>
-
                                 <ul className="dropdown__menu">
                                     <li className="dropdown__item">
-                                        <Link className="nav__link link__item" to='/service-registration/companies' onClick={() => linkAction('service', true)}>
+                                        <Link className="nav__link link__item" to={token ? '/service-registration/companies' : '/login'} onClick={requireLogin}>
                                             Đăng ký dịch vụ
                                         </Link>
                                     </li>
                                     <li className="dropdown__item">
-                                        <Link className="nav__link link__item" to='/service-management' onClick={() => linkAction('service', true)}>
+                                        <Link className="nav__link link__item" to={token ? '/service-management' : '/login'} onClick={requireLogin}>
                                             Quản lý dịch vụ
                                         </Link>
                                     </li>
                                 </ul>
                             </li>
-
                             <li className="nav__item dropdown">
                                 <div id="buildingemployee" style={{ cursor: 'pointer' }}
                                     className="nav__link dropdown__link"
@@ -126,51 +130,48 @@ const Header = () => {
                                     Quản lý nhân viên tòa nhà
                                     <i className="bx bx-chevron-down dropdown__icon" />
                                 </div>
-
                                 <ul className="dropdown__menu">
                                     <li className="dropdown__item">
-                                        <Link className="nav__link link__item" to='/buildingemployee' onClick={() => linkAction('buildingemployee', true)}>
+                                        <Link className="nav__link link__item" to={token ? '/buildingemployee' : '/login'} onClick={requireLogin}>
                                             Quản lý thông tin nhân viên
                                         </Link>
                                     </li>
                                     <li className="dropdown__item">
-                                        <Link className="nav__link link__item" to='/work' onClick={() => linkAction('buildingemployee', true)}>
+                                        <Link className="nav__link link__item" to={token ? '/work' : '/login'} onClick={requireLogin}>
                                             Quản lý công việc
                                         </Link>
                                     </li>
                                 </ul>
                             </li>
 
+                            {/* Phần hiển thị Đăng nhập hoặc Đăng xuất */}
                             {
-                                !token ?
-                                    (
-                                        <li className="nav__item">
-                                            <Link id='contact'
-                                                className="login-btn"
-                                                to={`/login`}
-                                                onClick={() => linkAction('contact', true)}>
-                                                <div style={{ textAlign: 'center', color: '#fff' }}>ĐĂNG NHẬP</div>
-                                            </Link>
-                                        </li>
-                                    ) :
-                                    (
-                                        <li className="nav__item dropdown">
-                                            <div id='userSection'
-                                                className="nav__link">
-                                                <div>
-                                                    <i style={{ fontSize: "26px", marginRight: "5px" }} className='bx bxs-user-circle'></i>
-                                                    {username}
-                                                </div>
+                                !token ? (
+                                    <li className="nav__item">
+                                        <Link id='contact'
+                                            className="login-btn"
+                                            to={`/login`}
+                                            onClick={() => linkAction('contact', true)}>
+                                            <div style={{ textAlign: 'center', color: '#fff' }}>ĐĂNG NHẬP</div>
+                                        </Link>
+                                    </li>
+                                ) : (
+                                    <li className="nav__item dropdown">
+                                        <div id='userSection' className="nav__link">
+                                            <div>
+                                                <i style={{ fontSize: "26px", marginRight: "5px" }} className='bx bxs-user-circle'></i>
+                                                {username}
                                             </div>
-                                            <ul className="dropdown__menu">
-                                                <li style={{ cursor: "pointer" }} className="dropdown__item" onClick={() => logout()}>
-                                                    <div className="nav__link">
-                                                        Đăng xuất
-                                                    </div>
-                                                </li>
-                                            </ul>
-                                        </li>
-                                    )
+                                        </div>
+                                        <ul className="dropdown__menu">
+                                            <li style={{ cursor: "pointer" }} className="dropdown__item" onClick={logout}>
+                                                <div className="nav__link">
+                                                    Đăng xuất
+                                                </div>
+                                            </li>
+                                        </ul>
+                                    </li>
+                                )
                             }
 
                         </ul>

@@ -3,37 +3,17 @@ import { ERROR } from "../constants/base";
 import { DELETE, GET_ALL, POST, UPDATE } from "../constants/employee";
 // import { GET_ONE } from "../constants/employee";
 
-
-export const getAllEmployeeBy = (companyId) => async dispatch => {
+export const getAllEmployeeBy = (companyId) => async (dispatch) => {
     try {
-        const res = await axios({
-            method: 'GET',
-            baseURL: process.env.REACT_APP_URL_API,
-            url: `company-employee/companyId=${companyId}`,
-            headers: {
-                "Authorization": "Bearer " + localStorage.getItem("token"),
-                "Content-Type": "application/json" 
-            }
-        })
-        if(res.status === 200){
-            dispatch({
-                type: GET_ALL,
-                data: res.data
-            })
-        }
-        else {
-            dispatch({
-                type: ERROR,
-                data: null,
-            })
-        }
+        const response = await axios.get(`/api/company-employee/company/${companyId}`);
+
+        dispatch({ type: 'FETCH_EMPLOYEES_SUCCESS', payload: response.data });
     } catch (error) {
-        dispatch({
-            type: ERROR,
-            data: null,
-        })
+        console.error("Error fetching employees:", error);
+        dispatch({ type: 'FETCH_EMPLOYEES_FAILURE', payload: error.message });
     }
-}
+};
+
 
 
 

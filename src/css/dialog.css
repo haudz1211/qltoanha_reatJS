@@ -5,22 +5,24 @@
     transform:translate(-50%,-50%);
 }
 .popup {
-    width:700px;
-    height:600px;
-    padding:30px 40px;
-    background:#fff;
-    border-radius:10px;
-    box-sizing:border-box;
-    z-index:99;
-    text-align:center;
-    opacity:0;
-    top:-200%;
-    transform:translate(-50%,-50%) scale(0.5);
+    width: 700px;
+    max-height: 80vh; /* Thay đổi chiều cao tối đa để tránh vượt khỏi màn hình */
+    padding: 30px 40px;
+    background: #fff;
+    border-radius: 10px;
+    box-sizing: border-box;
+    z-index: 99;
+    text-align: center;
+    opacity: 0;
+    top: -200%;
+    transform: translate(-50%, -50%) scale(0.5);
     transition: opacity 300ms ease-in-out,
                 top 1000ms ease-in-out,
                 transform 1000ms ease-in-out;
-    box-shadow: 0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22);
+    box-shadow: 0 14px 28px rgba(0, 0, 0, 0.25), 0 10px 10px rgba(0, 0, 0, 0.22);
+    overflow-y: auto; /* Thêm cuộn dọc nếu nội dung lớn */
 }
+
 .popup.active {
     opacity:1;
     top:50%;

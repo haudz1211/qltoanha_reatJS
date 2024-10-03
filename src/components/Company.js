@@ -123,6 +123,9 @@ const Company = () => {
 
     const viewEmployee = (id) => {
         // Handle view employee logic here
+        // Giả sử bạn có một route để xem nhân viên của một công ty cụ thể
+        // Điều này sẽ điều hướng đến trang danh sách nhân viên cho ID công ty đã cho
+        window.location.href = `/employees/${id}`;
     };
 
     const searchCompany = () => {
@@ -134,6 +137,9 @@ const Company = () => {
         setCompanies(tmpCompanies);
     };
 
+
+   
+    
     return (
         <div style={{ position: 'relative' }}>
             <div style={{ display: isShow ? 'block' : 'none' }} className="modal">
@@ -193,13 +199,13 @@ const Company = () => {
                             <tbody>
                                 <tr>
                                     <th>STT</th>
-                                    <th style={{ width: '200px' }}>Name</th>
-                                    <th style={{ width: '200px' }}>Tax code</th>
-                                    <th style={{ width: '200px' }}>Authorized Capital</th>
-                                    <th style={{ width: '200px' }}>Phone No</th>
-                                    <th style={{ width: '200px' }}>Employees</th>
-                                    <th style={{ width: '300px' }}>Sum of rented area</th>
-                                    <th style={{ width: '105px' }}>View Employee</th>
+                                    <th style={{ width: '200px' }}>Tên</th>
+                                    <th style={{ width: '200px' }}>Mã số thuế</th>
+                                    <th style={{ width: '200px' }}>Vốn điều lệ</th>
+                                    <th style={{ width: '200px' }}>Số điện thoại</th>
+                                    <th style={{ width: '200px' }}>Số nhân viên</th>
+                                    <th style={{ width: '300px' }}>Tổng diện tích thuê</th>
+                                    <th style={{ width: '105px' }}>Xem Nhân viên</th>
                                     <th style={{ width: '105px' }}>Sửa</th>
                                     <th style={{ width: '105px' }}>Xóa</th>
                                 </tr>
@@ -218,8 +224,7 @@ const Company = () => {
                                             <td>{item?.sumOfRentedArea}</td>
                                             <td>
                                                 <button onClick={() => viewEmployee(item.id)} className="post-edit-item-btn">
-                                                    <i className='bx bxs-pencil'></i>
-                                                    <Link style={{ color: "white" }} to={`company/view-employees/${item.id}`}>Xem</Link>
+                                                    <i className='bx bxs-pencil'></i> Xem
                                                 </button>
                                             </td>
                                            

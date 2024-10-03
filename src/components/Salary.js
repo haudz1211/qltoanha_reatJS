@@ -95,21 +95,31 @@ const Salary = () => {
     }
 
     const editSalary = () => {
+        // Lấy dữ liệu từ form chỉnh sửa
         const salaryLevel = document.getElementById('salary-level').value;
         const salary = document.getElementById('salary').value;
-        const data = {
+    
+        // Tạo dữ liệu cập nhật
+        const updatedSalary = {
             salary: Number(salary),
             salaryLevel: Number(salaryLevel),
-            service:service
+            service: service // Thông tin dịch vụ hiện tại
         }
-        dispatch(updateSalary(salaries[editIndex].id, data));
-        setIconLoad(true)
-            setTimeout(() => {
-                dispatch(getSalaryByService(serviceId))
-                setIconLoad(false)
-                cancelClick();
-            }, 300)
+    
+        // Cập nhật mức lương cho bản ghi với ID tương ứng (salaries[editIndex].id)
+        dispatch(updateSalary(salaries[editIndex].id, updatedSalary));
+    
+        // Hiển thị icon loading
+        setIconLoad(true);
+    
+        // Sau khi cập nhật, gọi lại danh sách lương từ dịch vụ và tắt form
+        setTimeout(() => {
+            dispatch(getSalaryByService(serviceId)); // Lấy lại dữ liệu sau khi cập nhật
+            setIconLoad(false); // Ẩn icon loading
+            cancelClick(); // Tắt popup chỉnh sửa
+        }, 300);
     }
+    
 
     const addSalary = () => {
         const salaryLevel = document.getElementById('salary-level').value;

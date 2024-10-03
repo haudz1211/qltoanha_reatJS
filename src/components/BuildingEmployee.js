@@ -32,10 +32,9 @@ const BuildingEmployee = () => {
 
     useEffect(() => {
         dispatch(getAllBuildingEmployees());
-        // console.log('dispatched');
-        return () => {
-        }
-    }, [location.pathname])
+        console.log('Building Employees:', data); // Kiểm tra dữ liệu ở đây
+    }, [dispatch]);
+    
 
     useEffect(() => {
         setBuildingEmployees(data);
@@ -339,7 +338,6 @@ const BuildingEmployee = () => {
                                         <th style={{ width: '200px' }}>Địa chỉ</th>
                                         <th style={{ width: '200px' }}>SĐT</th>
                                         <th style={{ width: '200px' }}>Vị trí</th>
-                                        <th style={{ width: '200px' }}>ID mức lương</th>
                                         <th style={{ width: '200px' }}>Cập nhật nhân viên</th>
                                         <th style={{ width: '200px' }}>Xóa nhân viên</th>
                                     </tr>
@@ -352,7 +350,6 @@ const BuildingEmployee = () => {
                                                 <td>{item?.address}</td>
                                                 <td>{item?.phoneNo}</td>
                                                 <td>{item?.position}</td>
-                                                <td>{item?.salary.id}</td>
                                                 <td>
                                                     <button onClick={() => popUpEditForm(index)} className="post-edit-item-btn">
                                                         <i className='bx bxs-pencil'></i>

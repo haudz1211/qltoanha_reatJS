@@ -5,26 +5,26 @@ const initState = {
     success: true,
 }
 
-const buildingEmployeeReducers = (state = initState, payload) => {
-    switch (payload.type) {
+const buildingEmployeeReducers = (state = initState, action) => {
+    switch (action.type) {
         case 'GET_ALL_BUILDING_EMPLOYEE':
             return {
                 ...state,
-                data: payload.data,
+                data: action.data, // Sử dụng action.data thay vì payload.data
                 success: true,
                 error: false
             }
         case 'GET_ONE_BUILDING_EMPLOYEE':
-            return{
+            return {
                 ...state,
-                data: payload.data,
+                buildingEmployee: action.data, // Giả sử bạn muốn lưu một nhân viên cụ thể
                 success: true,
                 error: false,
             }
         case 'GET_BUILDING_EMPLOYEE_BY_NAME':
             return {
                 ...state,
-                data: payload.data,
+                data: action.data,
                 success: true,
                 error: false
             }            

@@ -37,7 +37,7 @@ const Login = () => {
                     <div className="login__box">
                         <i className="bx bx-user login__icon" />
                         <input 
-                            type="text" 
+                            type="" 
                             placeholder="Username" 
                             className="login__input" 
                             onChange={(e) => setUsername(e.target.value)}

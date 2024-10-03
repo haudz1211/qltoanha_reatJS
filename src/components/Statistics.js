@@ -1,5 +1,7 @@
 // import React, { useState, useEffect } from 'react';
 import React, {useEffect } from 'react';
+import jsPDF from 'jspdf';
+import html2canvas from 'html2canvas';
 
 import '../css/company.css'
 import '../css/form.css'
@@ -21,6 +23,53 @@ const Statistics = () => {
         dispatch(getAllStatistics());
     }, [dispatch, location.pathname])
 
+
+    // Hàm để xuất PDF
+  const exportPDF = () => {
+    const input = document.getElementById('admin-post__table');
+
+    if (input) {
+        html2canvas(input, {
+            backgroundColor: null,
+            scale: 2, // Tăng độ phân giải
+            useCORS: true // Cho phép lấy hình ảnh từ miền khác
+        }).then((canvas) => {
+            const imgData = canvas.toDataURL('image/png');
+            const pdf = new jsPDF({
+                orientation: 'landscape', // Chọn hướng
+                unit: 'px',
+                format: 'a4',
+            });
+
+            // Kích thước của hình ảnh
+            const imgWidth = canvas.width;
+            const imgHeight = canvas.height;
+
+            // Kích thước của PDF
+            const pdfWidth = pdf.internal.pageSize.getWidth();
+            const pdfHeight = pdf.internal.pageSize.getHeight();
+
+            // Tính toán tỷ lệ
+            const ratio = Math.min(pdfWidth / imgWidth, pdfHeight / imgHeight);
+            const width = imgWidth * ratio;
+            const height = imgHeight * ratio;
+
+            // Tính toán vị trí để căn giữa hình ảnh
+            const x = (pdfWidth - width) / 2; 
+            const y = (pdfHeight - height) / 2; 
+
+            pdf.addImage(imgData, 'PNG', x, y, width, height);
+            pdf.save(`statistics_${new Date().getMonth() + 1}_${new Date().getFullYear()}.pdf`);
+        });
+    } else {
+        console.error('Element not found!');
+    }
+};
+    
+    
+    
+
+
     return (
         <>
             <div style={{ position: 'relative' }} >
@@ -34,6 +83,7 @@ const Statistics = () => {
                         </div>
                         
                         <div className="admin-post__body" >
+                        <button onClick={exportPDF} className="export-pdf-btn">Xuất PDF</button> {/* Thêm nút xuất PDF */}
                             <table id="admin-post__table" style={{ maxWidth: "1500px" }}>
                                 <tbody>
                                     <tr>
@@ -43,7 +93,6 @@ const Statistics = () => {
                                         <th style={{ width: '250px' }}>Mã số thuế</th>
                                         <th style={{ width: '200px' }}>Vốn điều lệ</th>
                                         <th style={{ width: '200px' }}>SĐT</th>
-                                        <th style={{ width: '200px' }}>Sô nhân viên</th>
                                         <th style={{ width: '200px' }}>Tổng diện tích mặt bằng</th>
                                         <th style={{ width: '200px' }}>Tổng tiền phải trả tháng này</th>
                                         <th style={{ width: '105px' }}>Dịch vụ</th>
@@ -61,7 +110,6 @@ const Statistics = () => {
                                                     currency: 'VND',
                                                 }).format(item?.company?.authorizedCapital)}</td>
                                                 <td>{item?.company?.phoneNo}</td>
-                                                <td>{item?.company?.numberOfEmployee}</td>
                                                 <td>{item?.company?.sumOfRentedArea}</td>
                                                 <td>{new Intl.NumberFormat('vi-VN', {
                                                     style: 'currency',

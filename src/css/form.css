@@ -1,189 +1,235 @@
+/* Đặt màu chữ cho tất cả văn bản trong bảng */
+/* #admin-post__table {
+  color: black;  
+} */
+
+/* Đặt màu chữ cho các tiêu đề */
+/* #admin-post__table th {
+  color: black; 
+} */
+
+/* Đặt màu chữ cho các ô dữ liệu */
+/* #admin-post__table td {
+  color: black;  
+} */
+
+
 .form-post {
-    position: absolute;
-    width: 100%;
-    max-width: 650px;
-    height: 500px;
-    top: -200%;
-    left: 50%;
-    transform: translateX(-50%) translateY(-50%);
     background-color: #fff;
-    margin-top: 5px;
-    color: #000;
-    padding-left: 20px;
-    padding-right: 20px;
-    z-index: 9;
     border-radius: 10px;
-    opacity: 0;
-    transform:translate(-50%,-50%) scale(0.5);
-    transition: opacity 300ms ease-in-out,
-                top 1000ms ease-in-out,
-                transform 1000ms ease-in-out;
-    box-shadow: 0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22);
+    padding: 20px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    max-width: 600px;
+    max-height: 600px;
+    margin: 80px auto 0 auto; 
+    position: relative;
+    overflow: hiden; /* Thêm dòng này */
     overflow-y: auto;
-    overflow-x: hidden;
-}
-
-.form-post.active {
-    opacity:1;
-    top:35%;
-    transform:translate(-50%,-50%) scale(1);
-    transition: transform 300ms cubic-bezier(0.18,0.89,0.43,1.19);
-}
-
-.dialog-msg {
-    position: absolute;
-    width: 100%;
-    max-width: 400px;
-    height: 100px;
-    top: -200%;
-    left: 50%;
-    transform: translateX(-50%) translateY(-50%);
-    background-color: #fff;
-    margin-top: 70px;
-    color: #000;
-    padding-left: 20px;
-    padding-right: 20px;
-    z-index: 20;
-    border-radius: 10px;
-    opacity: 0;
-    transform:translate(-50%,-50%) scale(0.5);
-    transition: opacity 300ms ease-in-out,
-                top 1000ms ease-in-out,
-                transform 1000ms ease-in-out;
-    box-shadow: 0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    font-size: 22px;
-}
-
-.dialog-msg.active {
-    opacity:1;
-    top:35%;
-    transform:translate(-50%,-50%) scale(1);
-    transition: transform 300ms cubic-bezier(0.18,0.89,0.43,1.19);
-}
-
-.form-post__content {
-    width: 100%;
-    margin: auto;
-    /* padding-left: 100px; */
 }
 
 .form-post__title {
-    font-size: 35px;
-    font-weight: bolder;
+    font-size: 1.8rem;
+    font-weight: bold;
     text-align: center;
-    height: 80px;
-    padding-top: 20px;
-    text-transform: uppercase;
+    margin-bottom: 20px;
+    color: #333;
+    padding-bottom: 10px;
+    border-bottom: 2px solid #eee;
 }
 
-.form-post__field p {
+ 
+
+  
+  /* Phần nội dung form */
+  .form-post__content {
     margin-top: 20px;
-    color: #000;
 
+  }
+  
+  .form-post__field {
+    margin-bottom: 20px;
+  }
+  
+  .form-post__field p {
+    font-size: 1.2rem;
+    margin-bottom: 8px;
+    color: #333;
+  }
+  
+ /* Các input và text trong form */
+input[type="text"], input[type="date"], input[type="number"] {
+  width: 100%;
+  padding: 10px;
+  font-size: 1rem;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.05);
+  transition: border-color 0.3s;
+  color: black; /* Đặt màu chữ thành đen */
 }
 
-/* .new-order-field {
-    
-} */
-
-.form-post__field input,
-.form-post__content-title input {
-    min-width: 250px;
-    width: 90%;
-    height: 38px;
-    font-size: 16px;
-    border: 1px solid #bbb;
-    border-radius: 4px;
-    outline: none;
-    padding-left: 10px;
-    color: #000;
+input[type="text"]:focus, input[type="date"]:focus, input[type="number"]:focus {
+  border-color: #007bff;
+  outline: none;
+  box-shadow: 0 0 6px rgba(0, 123, 255, 0.2);
+  /* Đảm bảo màu chữ khi focus cũng là màu đen */
+  color: black; /* Đặt màu chữ thành đen khi focus */
 }
 
-.form-post__content-title button {
-    /* width: 140px; */
-    height: 40px;
-    /* color: white; */
-    background-color: #0984e3;
-    border: none;
-    outline: none;
-    border-radius: 5px;
-    font-size: 17px;
-    cursor: pointer;
-    font-weight: bold;
-    letter-spacing: 1px;
-    color: #fff;
-    margin-left: 30px;
-}
-
-.form-post__content-title button:hover {
-    background-color: #399eeb;
-}
-
-.form-post__field textarea {
-    min-width: 250px;
-    width: 90%;
-    /* width: 600px; */
-    height: 200px;
-    outline: none;
-    border: 1px solid #bbb
-}
-
-.form-post__field input[type=file] {
-    width: 500px;
-    border: none;
-    padding-left: 0;
-}
-
-.form-post__control {
+  
+  /* Các nút bấm */
+  .form-post__button {
     display: flex;
-    width: 100%;
-    justify-content: space-around;
-    align-items: center;
-    height: 100px;
+    justify-content: space-between;
     margin-top: 20px;
-}
-
-.form-post__control button{
-    width: 140px;
-    height: 40px;
-    /* color: white; */
-    border: none;
-    outline: none;
+  }
+  
+  .form-post__button-create, .form-post__button-cancel {
+    padding: 10px 20px;
+    font-size: 1rem;
     border-radius: 5px;
-    font-size: 17px;
     cursor: pointer;
-    font-weight: bold;
-    letter-spacing: 1px;
-    box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
-    transition: all 0.3s cubic-bezier(.25,.8,.25,1);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-
-.form-post__control .cancel-btn {
-    background-color: #000;
-    color: #fff;
-}
-
-.form-post__control .add-section-btn {
-    background-color: #0984e3;
-    color: #fff;
-}
-
-.form-post__control button:hover {
-    box-shadow: 0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22);
-}
-
-@media screen and (max-width: 768px){
-    .form-container {
-        margin-top: -20px;
+    transition: background-color 0.3s;
+  }
+  
+  .form-post__button-create {
+    background-color: #007bff;
+    color: #000000;
+    border: none;
+  }
+  
+  .form-post__button-create:hover {
+    background-color: #0056b3;
+  }
+  
+  .form-post__button-cancel {
+    background-color: #f5f5f5;
+    color: #333;
+    border: 1px solid #ccc;
+  }
+  
+  .form-post__button-cancel:hover {
+    background-color: #e0e0e0;
+  }
+  
+  /* Responsive */
+  @media (max-width: 768px) {
+    .form-post {
+      width: 90%;
     }
-}
-
+  }
+  
 .validate-phone{
     color: red;
+}
+
+.search-bar-wrapper {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 20px;
+    margin-top: 100px; /* Thêm khoảng cách từ phía trên */
+  }
+  
+  .search-bar {
+    width: 3001px;
+    padding: 10px;
+    border-radius: 5px;
+  }
+  
+  .search-bar-button {
+    padding: 10px 15px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-left: 10px;
+    transition: background-color 0.3s ease;
+  }
+  
+  .search-bar-button:hover {
+    background-color: #0056b3;
+  }
+  
+  /* Styling for the company list */
+  .company-list {
+    position: relative;;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    padding: 20px;
+    background-color: #f4f4f4;
+    border-radius: 5px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  }
+  
+  .company-list__item {
+    background-color: #ffffff;
+    padding: 15px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  .company-list__item:hover {
+    background-color: #e0e0e0;
+  }
+  
+  /* Style for the text inside the company list item */
+  .company-list__item p {
+    margin: 0;
+    font-size: 16px;
+    font-weight: bold;
+    color: #333;
+  }
+
+  .popup {
+    max-width: 700px;
+    max-height: 90vh; /* Thêm chiều cao tối đa */
+    overflow-y: auto; /* Thêm cuộn dọc nếu nội dung lớn */
+}
+.company-list__item {
+    align-items: center;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  padding: 10px 15px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.company-list__item:hover {
+  background-color: #0056b3;
+}
+
+.company-list__item i {
+  font-size: 1.2rem; /* Kích thước icon */
+}
+
+/* PDF */
+.export-pdf-btn {
+  background-color: #4CAF50; /* Màu nền xanh lá cây */
+  border: none;
+  color: white; /* Màu chữ trắng */
+  padding: 10px 20px; /* Khoảng cách nội dung trong nút */
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  margin: 10px 0; /* Khoảng cách giữa nút và các phần tử khác */
+  cursor: pointer;
+  border-radius: 5px; /* Bo tròn các góc */
+  transition: background-color 0.3s ease; /* Hiệu ứng khi di chuột */
+  float: right;
+}
+
+.export-pdf-btn:hover {
+  background-color: #45a049; /* Màu nền khi di chuột */
+}
+
+.export-pdf-btn:active {
+  background-color: #3e8e41; /* Màu nền khi nhấn giữ */
+  transform: translateY(2px); /* Hiệu ứng nhấn */
 }
