@@ -331,12 +331,13 @@ a {
   }
   .dropdown__item .nav__link {
     color: var(--dark-color);
+    
   }
   .dropdown__item:hover {
     /* background-color: rgb(209, 209, 209); */
   }
   .nav__link:hover {
-    color: #f6e58d;
+    color: #ff0000;
   }
   /*Active link new color*/
   .active {

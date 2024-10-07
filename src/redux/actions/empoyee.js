@@ -1,16 +1,37 @@
 import axios from "axios";
 import { ERROR } from "../constants/base";
-import { DELETE, GET_ALL, POST, UPDATE } from "../constants/employee";
-// import { GET_ONE } from "../constants/employee";
+import { DELETE, GET_ALL, GET_ONE, POST, UPDATE } from "../constants/employee";
 
-export const getAllEmployeeBy = (companyId) => async (dispatch) => {
+
+export const getAllEmployeeBy = (companyId) => async dispatch => {
     try {
-        const response = await axios.get(`/api/company-employee/company/${companyId}`);
+        const res = await axios({
+            method: 'GET',
+            baseURL: process.env.REACT_APP_URL_API,
+            url: `company-employee/company/${companyId}/employees`, // Điều chỉnh URL ở đây
+            headers: {
+                "Authorization": "Bearer " + localStorage.getItem("token"),
+                "Content-Type": "application/json" 
+            }
+        });
 
-        dispatch({ type: 'FETCH_EMPLOYEES_SUCCESS', payload: response.data });
+        if (res.status === 200) {
+            dispatch({
+                type: GET_ALL,
+                data: res.data
+            });
+        } else {
+            dispatch({
+                type: ERROR,
+                data: null,
+            });
+        }
     } catch (error) {
-        console.error("Error fetching employees:", error);
-        dispatch({ type: 'FETCH_EMPLOYEES_FAILURE', payload: error.message });
+        console.error(error); // Thêm log lỗi để kiểm tra
+        dispatch({
+            type: ERROR,
+            data: null,
+        });
     }
 };
 

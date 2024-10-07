@@ -1,17 +1,15 @@
 
 
 .footer {
-    
-    background-color: #2f2f30;
-    padding: 10px;
-    text-align: center;
-    /* position: fixed; */
     left: 0;
-    height: 27%;
-    position: relative; /* Hoặc fixed nếu cần */
-    bottom: 0;
-    width: 100%;
+    right: 0;
+    bottom: 0; /* Gắn footer xuống dưới cùng */
+    background: #333;
+    color: white;
+    text-align: center;
+    padding: 10px 0;
 }
+
 
 .footer-container {
     display: flex;
@@ -23,6 +21,7 @@
 
 .footer-contact {
     text-align: left;
+    margin-left: 40px;
 }
 
 .footer-social {

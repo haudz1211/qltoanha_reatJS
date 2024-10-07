@@ -104,6 +104,7 @@ function ServiceRegistration_RegisteredServices() {
 
         }
     }
+    
 
 
 
@@ -192,6 +193,7 @@ function ServiceRegistration_RegisteredServices() {
                                                 <td>{index + 1}</td>
                                                 <td>{item?.service?.name}</td>
                                                 <td>{item?.startDate}</td>
+                                                
                                                 <td>{new Intl.NumberFormat('vi-VN', {
                                                     style: 'currency',
                                                     currency: 'VND',

@@ -5,7 +5,6 @@ import '../css/dialog.css';
 import { useLocation } from 'react-router';
 import { useDispatch, useSelector } from 'react-redux';
 import { getAllCompany, createNewCompany, updateCompany, deleteCompany } from '../redux/actions/company';
-import { Link } from 'react-router-dom';
 
 const Company = () => {
     const [isShow, setIsShow] = useState(false);
@@ -16,8 +15,8 @@ const Company = () => {
     const [indexEditCompany, setIndexEditCompany] = useState(null);
     const [nameSearch, setNameSearch] = useState("");
     const [isPhone, setIsPhone] = useState(true);
-    const userRole = useSelector(state => state.auth?.userRole); // Lấy userRole từ Redux
-
+    const [isEmail, setIsEmail] = useState(true); // Trạng thái kiểm tra email
+    const userRole = useSelector(state => state.auth?.userRole);
     const dispatch = useDispatch();
 
     useEffect(() => {
@@ -29,14 +28,26 @@ const Company = () => {
         setCompanies(data);
     }, [data]);
 
+    const validatePhone = (phoneNumber) => {
+        var regPhone = /^\d{10}$/;
+        return phoneNumber.match(regPhone);
+    };
+
+    const validateEmail = (email) => {
+        var regEmail = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        return email.match(regEmail);
+    };
+
     const editClick = (index) => {
         setIsShow(true);
         setIsAdd(false);
         setIndexEditCompany(index);
         document.getElementById('name').value = companies[index].name;
         document.getElementById('tax-code').value = companies[index].taxCode;
+        document.getElementById('active-field').value = companies[index].activeField;
         document.getElementById('authorized-capital').value = companies[index].authorizedCapital;
         document.getElementById('phone-no').value = companies[index].phoneNo;
+        document.getElementById('email').value = companies[index].email; // Lấy giá trị email
         document.querySelector('.form-post').classList.add('active');
     };
 
@@ -44,6 +55,17 @@ const Company = () => {
         setIsShow(true);
         setIsAdd(true);
         document.querySelector('.form-post').classList.add('active');
+
+        // Reset các trường nhập liệu
+        document.getElementById('name').value = '';
+        document.getElementById('tax-code').value = '';
+        document.getElementById('active-field').value = '';
+        document.getElementById('authorized-capital').value = '';
+        document.getElementById('phone-no').value = '';
+        document.getElementById('email').value = ''; // Reset email
+        setIsPhone(true);
+        setIsEmail(true); // Reset trạng thái kiểm tra email
+
         if (mode === "edit") {
             document.querySelector('.dialog__title').textContent = "Sửa thông tin công ty";
         } else {
@@ -59,6 +81,7 @@ const Company = () => {
 
     const addOrUpdateItem = () => {
         setIsPhone(true);
+        setIsEmail(true); // Reset trạng thái kiểm tra email
         if (isAdd) {
             addItem();
         } else {
@@ -66,25 +89,28 @@ const Company = () => {
         }
     };
 
-    const validatePhone = (phoneNumber) => {
-        var regPhone = /^\d{10}$/;
-        return phoneNumber.match(regPhone);
-    };
-
     const editCompany = () => {
         const name = document.getElementById('name').value;
         const taxCode = document.getElementById('tax-code').value;
+        const activeField = document.getElementById('active-field').value;
         const authorizedCapital = document.getElementById('authorized-capital').value;
         const phoneNo = document.getElementById('phone-no').value;
-        const validate = validatePhone(phoneNo);
-        setIsPhone(validate);
-        if (!validate) return;
+        const email = document.getElementById('email').value; // Lấy giá trị email
+        const validatePhoneNumber = validatePhone(phoneNo);
+        const validateEmailAddress = validateEmail(email);
+        setIsPhone(validatePhoneNumber);
+        setIsEmail(validateEmailAddress);
+        if (!validatePhoneNumber || !validateEmailAddress) return;
+
         const data = {
             name: name,
             taxCode: taxCode,
+            activeField: activeField,
             authorizedCapital: Number(authorizedCapital),
-            phoneNo: phoneNo
+            phoneNo: phoneNo,
+            email: email // Thêm email vào data
         };
+
         dispatch(updateCompany(companies[indexEditCompany].id, data));
         let tmpCompanies = [...companies];
         tmpCompanies[indexEditCompany] = { ...tmpCompanies[indexEditCompany], ...data };
@@ -103,28 +129,46 @@ const Company = () => {
     const addItem = () => {
         const name = document.getElementById('name').value;
         const taxCode = document.getElementById('tax-code').value;
+        const activeField = document.getElementById('active-field').value;
         const authorizedCapital = document.getElementById('authorized-capital').value;
         const phoneNo = document.getElementById('phone-no').value;
-        const validate = validatePhone(phoneNo);
-        setIsPhone(validate);
-        if (!validate) return;
+        const email = document.getElementById('email').value; // Lấy giá trị email
+        const validatePhoneNumber = validatePhone(phoneNo);
+        const validateEmailAddress = validateEmail(email);
+        setIsPhone(validatePhoneNumber);
+        setIsEmail(validateEmailAddress);
+        if (!validatePhoneNumber || !validateEmailAddress) return;
 
         const data = {
             name: name,
             taxCode: taxCode,
+            activeField: activeField,
             authorizedCapital: Number(authorizedCapital),
-            phoneNo: phoneNo
+            phoneNo: phoneNo,
+            email: email // Thêm email vào data
         };
 
-        dispatch(createNewCompany(data));
-        dispatch(getAllCompany()); // Reload danh sách công ty sau khi thêm mới
+        dispatch(createNewCompany(data))
+            .then(() => {
+                // Reset các trường trong form về giá trị mặc định
+                document.getElementById('name').value = '';
+                document.getElementById('tax-code').value = '';
+                document.getElementById('active-field').value = '';
+                document.getElementById('authorized-capital').value = '';
+                document.getElementById('phone-no').value = '';
+                document.getElementById('email').value = ''; // Reset email
+
+                // Tải lại danh sách công ty
+                dispatch(getAllCompany());
+                cancelClick();
+            })
+            .catch(error => {
+                console.error("Error adding company:", error);
+            });
         cancelClick();
     };
 
     const viewEmployee = (id) => {
-        // Handle view employee logic here
-        // Giả sử bạn có một route để xem nhân viên của một công ty cụ thể
-        // Điều này sẽ điều hướng đến trang danh sách nhân viên cho ID công ty đã cho
         window.location.href = `/employees/${id}`;
     };
 
@@ -137,9 +181,6 @@ const Company = () => {
         setCompanies(tmpCompanies);
     };
 
-
-   
-    
     return (
         <div style={{ position: 'relative' }}>
             <div style={{ display: isShow ? 'block' : 'none' }} className="modal">
@@ -157,11 +198,18 @@ const Company = () => {
                                 <input style={{ width: '100%' }} type="text" id='tax-code' placeholder="Tax code" />
                             </div>
                             <div className="form-post__field">
+                                <input style={{ width: '100%' }} type="text" id='active-field' placeholder="Active Field" />
+                            </div>
+                            <div className="form-post__field">
                                 <input style={{ width: '100%' }} type="text" id='authorized-capital' placeholder="Authorized Capital" />
                             </div>
                             <div className="form-post__field">
                                 <input style={{ width: '100%' }} type="text" id='phone-no' placeholder="Phone No" />
                                 <span style={{ display: isPhone ? "none" : "" }} className='validate-phone'>Sai định dạng số điện thoại</span>
+                            </div>
+                            <div className="form-post__field">
+                                <input style={{ width: '100%' }} type="text" id='email' placeholder="Email" />
+                                <span style={{ display: isEmail ? "none" : "" }} className='validate-email'>Sai định dạng email</span>
                             </div>
                         </div>
                         <div className="form-post__control">
@@ -199,15 +247,17 @@ const Company = () => {
                             <tbody>
                                 <tr>
                                     <th>STT</th>
-                                    <th style={{ width: '200px' }}>Tên</th>
+                                    <th style={{ width: '450px' }}>Tên</th>
                                     <th style={{ width: '200px' }}>Mã số thuế</th>
+                                    <th style={{ width: '500px' }}>Lĩnh vực hoạt động</th>
                                     <th style={{ width: '200px' }}>Vốn điều lệ</th>
-                                    <th style={{ width: '200px' }}>Số điện thoại</th>
+                                    <th style={{ width: '150px' }}>Số điện thoại</th>
+                                    <th style={{ width: '200px' }}>Email</th> {/* Thêm cột Email */}
                                     <th style={{ width: '200px' }}>Số nhân viên</th>
                                     <th style={{ width: '300px' }}>Tổng diện tích thuê</th>
-                                    <th style={{ width: '105px' }}>Xem Nhân viên</th>
-                                    <th style={{ width: '105px' }}>Sửa</th>
-                                    <th style={{ width: '105px' }}>Xóa</th>
+                                    <th style={{ width: '90px' }}>Xem Nhân viên</th>
+                                    <th style={{ width: '80px' }}>Sửa</th>
+                                    <th style={{ width: '80px' }}>Xóa</th>
                                 </tr>
                                 {
                                     companies?.map((item, index) => (
@@ -215,11 +265,13 @@ const Company = () => {
                                             <td>{index + 1}</td>
                                             <td>{item?.name}</td>
                                             <td>{item?.taxCode}</td>
+                                            <td>{item?.activeField}</td>
                                             <td>{new Intl.NumberFormat('vi-VN', {
                                                 style: 'currency',
                                                 currency: 'VND',
                                             }).format(item?.authorizedCapital)}</td>
                                             <td>{item?.phoneNo}</td>
+                                            <td>{item?.email}</td> {/* Hiển thị email */}
                                             <td>{item?.numberOfEmployee}</td>
                                             <td>{item?.sumOfRentedArea}</td>
                                             <td>
@@ -227,21 +279,18 @@ const Company = () => {
                                                     <i className='bx bxs-pencil'></i> Xem
                                                 </button>
                                             </td>
-                                           
-                                            <>
-                                                <td>
-                                                    <button onClick={() => editClick(index)} className="post-edit-item-btn">
-                                                        <i className='bx bxs-pencil'></i>
-                                                        Sửa
-                                                    </button>
-                                                </td>
-                                                <td>
-                                                    <button className="post-delete-btn" onClick={() => removeCompany(item.id)}>
-                                                        <i className='bx bx-trash'></i>
-                                                        Xóa
-                                                    </button>
-                                                </td>
-                                            </>
+                                            <td>
+                                                <button onClick={() => editClick(index)} className="post-edit-item-btn">
+                                                    <i className='bx bxs-pencil'></i>
+                                                    Sửa
+                                                </button>
+                                            </td>
+                                            <td>
+                                                <button className="post-delete-btn" onClick={() => removeCompany(item.id)}>
+                                                    <i className='bx bx-trash'></i>
+                                                    Xóa
+                                                </button>
+                                            </td>
                                         </tr>
                                     ))
                                 }

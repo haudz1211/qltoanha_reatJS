@@ -3,14 +3,17 @@ import { LOGIN, SIGNUP } from "../constants/login";
 
 const initState = {
     data: {},
+    userRole: null, // Thêm trường này
     error: false
 }
-const loginReducers = (state=initState, payload) => {
+
+const loginReducers = (state = initState, payload) => {
     switch (payload.type) {
         case LOGIN:
             return {
                 ...state,
                 data: payload.data,
+                userRole: payload.data.role, // Lưu vai trò vào state
                 error: false
             }
         case SIGNUP:

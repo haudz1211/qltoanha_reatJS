@@ -13,7 +13,6 @@ import Footer from './components/Footer';
 import Contact from './components/Contact';
 import Company from './components/Company';
 import Employee from './components/Employee';
-import UserManagement from './components/UserManagement'; // Import UserManagement
 import ServiceRegistrationCompany from './components/ServiceRegistrationCompany';
 import ServiceRegistrationRegisteredService from './components/ServiceRegistrationRegisteredServices';
 import ServiceRegistrationServices from './components/ServiceRegistrationServices';
@@ -31,6 +30,7 @@ import MonthlySalary from './components/MonthlySalary';
 import Work from './components/Work';
 import AdminDashboard from './components/AdminDashboard'; // Import component quản trị
 import Register from './components/Register';
+import UserList from './components/UserList';
 
 // Giả lập trạng thái đăng nhập
 const isAdmin = true; // Thay đổi logic này tùy theo cách bạn quản lý đăng nhập
@@ -54,7 +54,6 @@ function App() {
                     <Route path="/employees/:companyId" element={<Employee />} />   
                     
                     <Route path="/company" element={<Company />} />
-                    <Route path="/user-management" element={<PrivateRoute element={<UserManagement />} />} />
                     <Route path="/service-management" element={<Service />} />
                     <Route path="/service-registration/companies" element={<ServiceRegistrationCompany />} />
                     <Route path="/service-registration/registered-services" element={<ServiceRegistrationRegisteredService />} />
@@ -70,7 +69,10 @@ function App() {
                     <Route path="/monthly-statistics-details" element={<MonthlyStatisticDetails />} />
                     <Route path="/monthly-salary" element={<MonthlySalary />} />
                     <Route path="/work" element={<Work />} />
+                    <Route path="/use-list" element={<UserList />} />
+
                     <Route path="/" element={<Home />} />
+                    
                     <Route path="*" element={<Navigate to="/" />} />
                 </Routes>
                 <Footer />

@@ -1,4 +1,6 @@
 import React, { useEffect } from 'react';
+import { GoogleMap, LoadScript, Marker } from '@react-google-maps/api'; // Import các thành phần cần thiết từ Google Maps
+
 import '../css/intro.css';
 import '../css/home.css';
 
@@ -12,6 +14,18 @@ const Home = () => {
         }
     }, [])
 
+
+    // Định nghĩa vị trí của bản đồ
+    const mapContainerStyle = {
+        width: '100 %',
+        height: '400px', // Chiều cao của bản đồ
+    };
+
+    const center = {
+        lat: 10.6754047, // Vĩ độ của địa điểm
+        lng: 106.6906695, // Kinh độ của địa điểm
+    };
+
     return (
         <>
             <div className="home-content-wrapper">
@@ -24,16 +38,9 @@ const Home = () => {
                             </div>
                             <p>Chúng tôi cung cấp một hệ thống quản lý toàn diện cho các tòa nhà văn phòng, cho phép các quản trị viên dễ dàng quản lý các công ty thuê văn phòng, theo dõi thông tin về các mặt bằng thuê, quản lý các dịch vụ và đội ngũ nhân viên tòa nhà.</p>
                             <div className="button-container">
-                                <a href="/contact" className="contact-button">
+                                <a href="/" className="contact-button">
                                     Liên Hệ
-                                    <span className="button-inner">
-                                        <span className="button-blobs">
-                                            <span className="button-blob"></span>
-                                            <span className="button-blob"></span>
-                                            <span className="button-blob"></span>
-                                            <span className="button-blob"></span>
-                                        </span>
-                                    </span>
+                                    
                                 </a>
                             </div>
                         </div>
@@ -86,7 +93,31 @@ const Home = () => {
                 </div>
             </div>
 
+            <div className="map-section">
+                <h2 className="map-title">Địa điểm Trường Đại học Mở TP. Hồ Chí Minh trên bản đồ</h2>
+                <div className="map-address-container">
+                    <div className="map-container">
+                        <LoadScript googleMapsApiKey={process.env.REACT_APP_GOOGLE_MAPS_API_KEY}>
+                            <GoogleMap
+                                mapContainerStyle={mapContainerStyle}
+                                center={center}
+                                zoom={17}
+                            >
+                                <Marker position={center} />
+                            </GoogleMap>
+                        </LoadScript>
+                    </div>
+                    <div className="address-container">
+                        <h3>Địa chỉ:</h3>
+                        <p>Trường Đại học Mở TP. Hồ Chí Minh (Cơ sở 3)</p>
+                        <a href="https://www.google.com/maps/place/Tr%C6%B0%E1%BB%9Dng+%C4%90%E1%BA%A1i+h%E1%BB%8Dc+M%E1%BB%9F+TP.+H%E1%BB%93+Ch%C3%AD+Minh+(c%C6%A1+s%E1%BB%9F+3)/@10.6754047,106.6880946,17z/data=!3m1!4b1!4m6!3m5!1s0x31753100099ce9ed:0xdb6079801f0735ea!8m2!3d10.6754047!4d106.6906695!16s%2Fg%2F11vb0y4b78?hl=vi-VN&entry=ttu&g_ep=EgoyMDI0MTAwMi4xIKXMDSoASAFQAw%3D%3D">
+                        <p>Địa chỉ: Khu dân cư, Nhà Bè, Hồ Chí Minh, Việt Nam</p>
+                        </a>
+                    </div>
+                </div>
+            </div>
 
+        
         
         </>
     )

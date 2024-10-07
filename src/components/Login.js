@@ -37,7 +37,7 @@ const Login = () => {
                     <div className="login__box">
                         <i className="bx bx-user login__icon" />
                         <input 
-                            type="" 
+                            // type="text" 
                             placeholder="Username" 
                             className="login__input" 
                             onChange={(e) => setUsername(e.target.value)}
@@ -56,10 +56,12 @@ const Login = () => {
                     <button type="submit" className="login__button">
                         Đăng nhập
                     </button>
-                    <span className="login__account" nClick={() => window.location.href = '/register'}>Bạn chưa có tài khoản? 
+                    <span className="login__account" onClick={() => window.location.href = '/register'}>
+                        Bạn chưa có tài khoản? 
                         <span className="login__signup" onClick={() => window.location.href = '/register'}> Đăng kí</span>
                     </span>
                 </form>
+                {error && <div className="error-message">{error}</div>} {/* Hiển thị thông báo lỗi nếu có */}
             </div>
         </div>
     );

@@ -28,6 +28,7 @@ module.exports = {
     ]
   },
   devtool: 'source-map', 
+  
 };
 
 // webpack.config.js
