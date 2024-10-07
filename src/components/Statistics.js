@@ -43,7 +43,7 @@ const Statistics = () => {
                 {
                     label: 'Biểu đồ doanh thu tháng này',
                     data: statistics?.map(item => item?.totalAmount) || [], // Tổng tiền phải trả
-                    backgroundColor: 'rgba(255, 99, 132, 0.6)', // Thay đổi màu của cột
+                    backgroundColor: 'rgba(75, 192, 192, 0.6)', // Thay đổi màu của cột
                 },
             ],
         };
@@ -51,60 +51,32 @@ const Statistics = () => {
 
     // Các tùy chọn cho biểu đồ
 // Các tùy chọn cho biểu đồ
-        const options = {
-            responsive: true,
-            plugins: {
-                legend: {
-                    display: true,
-                    labels: {
-                        color: 'white', // Đặt màu chữ cho chú thích thành trắng
-                        font: {
-                            size: 17, // Kích thước chữ của chú thích
-                        },
-                    },
-                },
-                tooltip: {
-                    enabled: true,
-                    titleColor: 'white', // Đặt màu chữ cho tiêu đề tooltip
-                    bodyColor: 'white', // Đặt màu chữ cho nội dung tooltip
-                },
+        // Các tùy chọn cho biểu đồ
+const options = {
+    responsive: true,
+    plugins: {
+        legend: {
+            display: true, // Hiển thị danh sách chú thích
+        },
+        tooltip: {
+            enabled: true, // Hiển thị tooltip khi hover
+        },
+        // Thay đổi màu nền của biểu đồ
+        background: {
+            color: 'rgba(255, 255, 255, 1)', // Thay đổi màu nền
+        },
+    },
+    scales: {
+        y: {
+            beginAtZero: true, // Bắt đầu trục Y từ 0
+            title: {
+                display: true,
+                text: 'Số tiền (VND)', // Tiêu đề cho trục Y
             },
-            scales: {
-                x: {
-                    ticks: {
-                        color: 'white', // Đặt màu chữ cho nhãn trục X thành trắng
-                        font: {
-                            size: 10, // Kích thước chữ cho nhãn trục X
-                        },
-                    },
-                    title: {
-                        display: true,
-                        text: 'Tên công ty', // Tiêu đề cho trục X
-                        color: 'white', // Đặt màu chữ cho tiêu đề trục X
-                        font: {
-                            size: 16, // Kích thước chữ cho tiêu đề trục X
-                        },
-                    },
-                },
-                y: {
-                    beginAtZero: true, // Bắt đầu trục Y từ 0
-                    ticks: {
-                        color: 'white', // Đặt màu chữ cho nhãn trục Y thành trắng
-                        font: {
-                            size: 10, // Kích thước chữ cho nhãn trục Y
-                        },
-                    },
-                    title: {
-                        display: true,
-                        text: 'Số tiền (VND)', // Tiêu đề cho trục Y
-                        color: 'white', // Đặt màu chữ cho tiêu đề trục Y
-                        font: {
-                            size: 16, // Kích thước chữ cho tiêu đề trục Y
-                        },
-                    },
-                },
-            },
-        };
+        },
+    },
+};
+
 
 
     
@@ -183,6 +155,7 @@ const Statistics = () => {
             console.error('Elements not found!');
         }
     };
+    
     
 
     const token = localStorage.getItem('token');
